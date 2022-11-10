@@ -61,6 +61,13 @@ class PikachuVolleyballEnv(gym.Env):
 
     def __init__(self, isPlayer1Computer: bool, isPlayer2Computer: bool):
         self.action_space = spaces.MultiDiscrete([18, 18])
+        self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(2, 12), dtype=np.float64)
+        # self.observation_space = spaces.Tuple([
+        #     spaces.Box(
+        #         low=-1000, high=1000, shape=(24, )),
+        #     spaces.Box(
+        #         low=-1000, high=1000, shape=(12, ))
+        # ])
 
         self.player1 = Player(False, isPlayer1Computer)
         self.player2 = Player(True, isPlayer2Computer)
@@ -87,6 +94,8 @@ class PikachuVolleyballEnv(gym.Env):
                           -(self.player1.xVelocity) / 6, self.player1.yVelocity / 16)
         
         observation = (observation_p1, observation_p2)
+
+        observation = np.array(observation)
         
         if isBallTouchingGround:
             if self.ball.punchEffectX < GROUND_HALF_WIDTH:
@@ -136,7 +145,11 @@ class PikachuVolleyballEnv(gym.Env):
                           -(self.player1.x - GROUND_HALF_WIDTH) / GROUND_HALF_WIDTH, self.player1.y / 304,
                           -(self.player1.xVelocity) / 6, self.player1.yVelocity / 16)
         
+
         observation = (observation_p1, observation_p2)
+        observation = np.array(observation)
+        print(observation.shape)
+        print(observation.dtype)
 
         return observation
         
