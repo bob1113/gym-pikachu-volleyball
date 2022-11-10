@@ -45,3 +45,11 @@ You can play against the default AI. The game will end when a point is scored.
 
 To record your game play, add `--record` to the above command and you will get a file with
 all the actions you did and the seed for the game. 
+
+## Dependency
+
+By running
+
+```bash
+pip install -r requirements.txt
+```
